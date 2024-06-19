@@ -1,0 +1,30 @@
+.container-List {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  font-family: Arial, sans-serif;
+}
+ul {
+  padding: 0;
+  li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.display {
+  display: flex;
+  gap: 1rem;
+  .todo,
+  .done {
+    width: 18rem;
+    height: 18rem;
+    background-color: hsl(0, 0%, 75%);
+    text-align: center;
+    padding: 0 2rem;
+  }
+}
