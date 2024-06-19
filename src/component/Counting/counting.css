@@ -1,0 +1,40 @@
+.container{
+    text-align: center;
+    font-family: monospace;
+    p{
+        font-size: 6rem;
+    }
+    button{
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 1rem 2rem;
+        cursor: pointer;
+        color: white;
+        font-weight: bold;
+        transition: background-color 0.25s ease;
+        &.push{
+            background-color: hsl(120, 100%, 25%);
+            margin-right: 0.5rem;
+            &:hover{
+                background-color: black;
+                border:1px solid hsl(120, 100%, 25%);
+            }
+        }
+        &.pull{
+            background-color: hsl(0, 100%, 50%);
+            margin-left: 0.5rem;
+            &:hover{
+                background-color: black;
+                border:1px solid hsl(0, 100%, 50%);
+            }
+        }
+        &.reset{
+            background-color: hsl(251, 100%, 50%);
+            &:hover{
+                background-color: black;
+                border:1px solid hsl(251, 100%, 50%);
+            }
+        }
+    }
+    
+}
