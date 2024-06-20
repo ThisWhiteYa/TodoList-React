@@ -1,15 +1,22 @@
 import React, { useState } from "react";
 import "./List.css";
 function List() {
-  const [todo, setTodo] = useState(["เรียน", "เล่นเกม"]);
+  const [todo, setTodo] = useState([]);
   const [done, setDone] = useState([]);
-
+  const date = new Date();
+  //Time Setting
+  function handleTime() {
+    return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ${
+      date.getHours() > 10 ? date.getHours() : "0" + date.getHours()
+    }:${date.getMinutes() > 10 ? date.getMinutes() : "0" + date.getMinutes()}`;
+  }
   //Add to array todo
   function handleAddTodo() {
     const newTodo = document.getElementById("inputTodo").value;
     document.getElementById("inputTodo").value = "";
     if (newTodo !== "") {
-      setTodo((t) => [...t, newTodo]);
+      //t = todo
+      setTodo((t) => [...t, { todo: newTodo, time: handleTime() }]);
     }
   }
 
@@ -21,6 +28,7 @@ function List() {
   //Add to array done
   function handleDoneTodo(index) {
     const newDone = todo[index];
+    newDone.time  = handleTime()
     setTodo(todo.filter((_, i) => i !== index));
     setDone((d) => [...d, newDone]);
   }
@@ -32,54 +40,60 @@ function List() {
   }
 
   return (
-    <div className="container-List">
+    <>
       <h1 className="header">TODO - LIST</h1>
-      <div className="input-todo">
-        <input
-          type="text"
-          id="inputTodo"
-          placeholder="Enter Todo"
-          maxLength="20"
-        />
-        <button id="btn-add" onClick={handleAddTodo}>
-          add
-        </button>
-      </div>
+      <div className="container-List">
+        <div className="input-todo">
+          <input
+            type="text"
+            id="inputTodo"
+            placeholder="Enter Todo"
+            maxLength="20"
+          />
+          <button id="btn-add" onClick={handleAddTodo}>
+            Add
+          </button>
+        </div>
 
-      <div className="display">
-        <div className="todo">
-          <h1>- Todo -</h1>
-          <span>{todo.length} Task</span>
-          <ul>
-            {todo.map((todo, index) => (
-              <li key={index}>
-                <div className="text-wrap">{todo}</div>
-                <div className="btn">
-                  <button onClick={() => handleDoneTodo(index)}>Done</button>
-                  <button
-                    onClick={() => handleDeleteTodo(index)}
-                    className="delete-todo">
-                    Delete
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="done">
-          <h1>- Done -</h1>
-          <span>{done.length} Task</span>
-          <ul>
-            {done.map((done, index) => (
-              <li key={index}>
-                <div className="text-wrap">{done}</div>
-                <button onClick={() => handleUnDo(index)}>Undo</button>
-              </li>
-            ))}
-          </ul>
+        <div className="display">
+          <div className="todo">
+            <h1>Todo</h1>
+            <span>{todo.length} Task</span>
+            <ul>
+              {todo.map((todo, index) => (
+                <li key={index}>
+                  <div className="text-wrap">{todo.todo}</div>
+                  <span>{todo.time}</span>
+                  <div className="btn">
+                    <button onClick={() => handleDoneTodo(index)}>Done</button>
+                    <button
+                      onClick={() => handleDeleteTodo(index)}
+                      className="delete-todo"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="done">
+            <h1>Done</h1>
+            <span>{done.length} Task</span>
+            <ul>
+              {done.map((done, index) => (
+                <li key={index}>
+                  <div className="text-wrap">{done.todo}</div>
+                  <span>{done.time}</span>
+                  {/* <span>{`${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${minutes()}`}</span> */}
+                  <button onClick={() => handleUnDo(index)}>Undo</button>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
