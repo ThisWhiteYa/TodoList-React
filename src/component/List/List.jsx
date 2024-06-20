@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./List.css";
 function List() {
   const [todo, setTodo] = useState([]);
@@ -29,12 +29,14 @@ function List() {
   function handleDoneTodo(index) {
     const newDone = todo[index];
     newDone.time  = handleTime()
+    console.log('Change');
     setTodo(todo.filter((_, i) => i !== index));
     setDone((d) => [...d, newDone]);
   }
   //remove from done to todo
   function handleUnDo(index) {
     const unDo = done[index];
+    unDo.time  = handleTime()
     setDone(done.filter((_, i) => i !== index)); //Remove from list of Done
     setTodo((t) => [...t, unDo]); // trans to Todo-list
   }
